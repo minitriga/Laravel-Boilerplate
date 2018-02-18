@@ -11,6 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+/**
+ * Account
+ */
+Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.'], function () {
+    Route::get('/', 'Account\AccountController@index')->name('index');
+
+
+    /**
+     * Profile
+     */
+    Route::get('/profile', 'Account\ProfileController@index')->name('profile.index');
+    Route::post('/profile', 'Account\ProfileController@store')->name('profile.store');
+
+    /**
+     * Profile
+     */
+    Route::get('/password', 'Account\PasswordController@index')->name('password.index');
+    Route::post('/password', 'Account\PasswordController@store')->name('password.store');
+
+
 });
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
