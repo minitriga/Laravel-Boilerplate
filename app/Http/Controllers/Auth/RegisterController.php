@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use App\Events\Auth\UserSignedUp;
 
 class RegisterController extends Controller
 {
@@ -66,6 +68,23 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'activated' => false,
         ]);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        $this->guard()->logout();
+
+        event(new UserSignedUp($user));
+
+        return redirect($this->redirectPath())->withSuccess('Please check your email for an activation link.');
     }
 }

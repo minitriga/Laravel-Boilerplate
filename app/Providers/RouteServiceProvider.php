@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Models\ConfirmationToken;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::model('confirmation_token', ConfirmationToken::class);
 
         parent::boot();
     }

@@ -21,7 +21,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.'], function () {
     Route::get('/', 'Account\AccountController@index')->name('index');
 
-
     /**
      * Profile
      */
@@ -33,7 +32,21 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
      */
     Route::get('/password', 'Account\PasswordController@index')->name('password.index');
     Route::post('/password', 'Account\PasswordController@store')->name('password.store');
-
-
 });
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+/**
+ * Authenticated
+ */
+Route::group(['middleware' => ['auth']], function () {
+
+    /**
+     * Dashboard
+     */
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+});
+
+Route::group(['prefix' => 'activation', 'as' => 'activation.', 'middleware' => ['guest']], function () {
+    Route::get('/resend', 'Auth\ActivationResendController@index')->name('resend');
+    Route::post('/resend', 'Auth\ActivationResendController@store')->name('resend.store');
+    Route::get('/{confirmation_token}', 'Auth\ActivationController@activate')->name('activate');
+});
