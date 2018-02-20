@@ -16,6 +16,16 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 /**
+* Admin
+*/
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'namespace' =>  'Admin', 'as' => 'admin.'], function (){
+    Route::get('/impersonate', 'ImpersonateController@index')->name('index');
+    Route::post('/impersonate', 'ImpersonateController@start')->name('impersonate.start');
+});
+
+Route::delete('admin/impersonate', 'Admin\ImpersonateController@destroy')->name('admin.impersonate.destroy');
+
+/**
  * Account
  */
 Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.', 'namespace' => 'Account'], function () {
@@ -32,6 +42,20 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
      */
     Route::get('/password', 'PasswordController@index')->name('password.index');
     Route::post('/password', 'PasswordController@store')->name('password.store');
+
+    /**
+     * Password
+     */
+    Route::get('/deactivate', 'DeactivateController@index')->name('deactivate.index');
+    Route::post('/deactivate', 'DeactivateController@store')->name('deactivate.store');
+
+    /**
+     * Two Factor
+     */
+    Route::get('/twofactor', 'TwoFactorController@index')->name('twofactor.index');
+    Route::post('/twofactor', 'TwoFactorController@store')->name('twofactor.store');
+    Route::post('/twofactor/verify', 'TwoFactorController@verify')->name('twofactor.verify');
+    Route::delete('/twofactor/delete', 'TwoFactorController@destroy')->name('twofactor.destroy');
 
     /**
      * Subscription
@@ -116,4 +140,12 @@ Route::group(['prefix' => 'plans', 'as' => 'plans.', 'middleware' => 'subscripti
 Route::group(['prefix' => 'subscription', 'as' => 'subscription.', 'middleware' => ['auth.register', 'subscription.inactive']], function () {
     Route::get('/', 'Subscription\SubscriptionController@index')->name('index');
     Route::post('/', 'Subscription\SubscriptionController@store')->name('store');
+});
+
+/**
+* guest
+*/
+Route::group(['middleware' => 'guest', 'namespace' => 'Auth'], function () {
+    Route::get('/login/twofactor', 'TwoFactorLoginController@index')->name('login.twofactor.index');
+    Route::post('/login/twofactor', 'TwoFactorLoginController@verify')->name('login.twofactor.verify');
 });

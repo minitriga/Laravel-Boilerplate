@@ -28,6 +28,21 @@
                         <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
 
+                    @impersonating
+                        <li>
+                            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('impersonate.destroy').submit();">Stop Impersonating</a>
+                        
+                            <form action="{{ route('admin.impersonate.destroy') }}" method="POST" id="impersonate.destroy">
+                                @csrf
+                                {{ method_field('DELETE') }}
+                            </form>
+                        </li>
+                    @endimpersonating
+
+                    @admin
+                        <li><a class="nav-link" href="{{ route('account.profile.index') }}">Admin</a></li>
+                    @endadmin
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
