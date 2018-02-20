@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             <form action="{{ route('account.password.store') }}" method="POST">
-                {{ csrf_field() }}
+                @csrf
                 
                 <div class="form-group">
                     <label for="password_current" class="control-label">Current Password</label>
