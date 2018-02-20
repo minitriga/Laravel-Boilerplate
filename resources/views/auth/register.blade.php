@@ -78,7 +78,6 @@
                                     </div>
                                 </div>
                             </div>
-                        
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -90,6 +89,7 @@
                     </form>
                 </div>
             </div>
+            <h5 class="text-center mt-2"><a href="{{route('login')}}" class="text-muted">Already Have an Account?</a></h5>
         </div>
     </div>
 </div>

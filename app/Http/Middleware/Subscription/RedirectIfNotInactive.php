@@ -3,6 +3,7 @@
 namespace App\Http\Middleware\Subscription;
 
 use Closure;
+use Illuminate\Support\Facades\Auth; 
 
 class RedirectIfNotInactive
 {
@@ -15,9 +16,12 @@ class RedirectIfNotInactive
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->hasSubscription()) {
+
+        
+        if(Auth::check() && auth()->user()->hasSubscription()) {
             return redirect()->route('account.index');
         }
+
         return $next($request);
     }
 }

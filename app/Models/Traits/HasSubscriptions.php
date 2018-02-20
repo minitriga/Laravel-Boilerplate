@@ -30,7 +30,7 @@ trait HasSubscriptions
         if ($this->hasPiggybackSubscription()) {
             return true;
         }
-        return $this->subscribed('main');
+        return !$this->subscribed('main');
     }
 
     public function doesNotHaveSubscription()

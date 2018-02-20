@@ -19,8 +19,6 @@ class ImpersonateController extends Controller
         $user = User::where('email', $request->email)->first();
 
         session()->put('impersonate', $user->id);
-
-
         
         return redirect('/')->withSuccess("You are now impersonating $user->name.");
     }
