@@ -16,12 +16,11 @@ class RedirectIfNotInactive
      */
     public function handle($request, Closure $next)
     {
-
-        
-        if(Auth::check() && auth()->user()->hasSubscription()) {
-            return redirect()->route('account.index');
+        if(auth()->check()) {
+            if(auth()->user()->hasSubscription()) {
+                return redirect()->route('account.index');
+            }
         }
-
         return $next($request);
     }
 }
