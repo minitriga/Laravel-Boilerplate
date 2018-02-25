@@ -12,10 +12,18 @@ use Laravel\Cashier\Billable;
 use Laravel\Cashier\Subscription;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\TwoFactor;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasConfirmationTokens, HasRoles, Billable, HasSubscriptions, HasTwoFactorAuthentication, SoftDeletes;
+    use Notifiable,
+    HasConfirmationTokens, 
+    HasRoles, 
+    Billable, 
+    HasSubscriptions, 
+    HasTwoFactorAuthentication, 
+    SoftDeletes,
+    HasApiTokens;
 
     /**
      * The attributes that are mass assignable.

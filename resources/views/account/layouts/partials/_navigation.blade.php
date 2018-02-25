@@ -18,6 +18,10 @@
     <li class="nav-item">
             <a href="{{ route('account.twofactor.index') }}" class="nav-link text-left {{ Nav::isRoute('account.twofactor.index') }}">Two Factor Authentication</a>
     </li>
+
+    <li class="nav-item">
+        <a href="{{ route('account.token.index') }}" class="nav-link text-left {{ Nav::isRoute('account.token.index') }}">API Tokens</a>
+    </li>
 </ul>
 
 
