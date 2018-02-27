@@ -3,6 +3,8 @@
 ```
 git clone https://github.com/minitriga/Laravel-Boilerplate.git
 composer install
+php artisan migrate
+php artisan key:generate
 php artisan passport:install
 yarn install
 yarn run dev
