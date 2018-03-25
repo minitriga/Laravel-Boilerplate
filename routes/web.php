@@ -34,7 +34,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
     /**
      * Profile
      */
-    Route::get('/rofile', 'ProfileController@index')->name('profile.index');
+    Route::get('/profile', 'ProfileController@index')->name('profile.index');
     Route::post('/profile', 'ProfileController@store')->name('profile.store');
 
     /**
