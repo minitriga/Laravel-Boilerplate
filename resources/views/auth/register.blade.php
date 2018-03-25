@@ -65,7 +65,7 @@
                             <div class="col-md-6 offset-md-4">
                                     <div class="form-group">
                                         <div class="form-check">
-                                            <input class="form-check-input {{ $errors->has('terms') ? ' is-invalid' : '' }}" type="checkbox" value="terms" id="terms">
+                                            <input class="form-check-input {{ $errors->has('terms') ? ' is-invalid' : '' }}" name="terms" type="checkbox" id="terms">
                                             <label class="form-check-label" for="terms">
                                                 Agree to terms and conditions
                                             </label>
